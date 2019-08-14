@@ -4,10 +4,10 @@ Node Express restful API implementation for [Reel Reviews](https://github.com/gr
 
 ## Docker
 
-| Environment Variable     | Description                 | Default Value                   |
-| ------------------------ | --------------------------- | ------------------------------- |
-| REEL_REVIEWS_API_PORT    | TCP Sevrer Port             | 5000                            |
-| REEL_REVIEWS_MONGODB_URL | MongoDB URL With Collection | mongodb://localhost/reelreviews |
+| Environment Variable      | Description         | Default Value   |
+| ------------------------- | ------------------- | --------------- |
+| REEL_REVIEWS_API_PORT     | TCP Sevrer Port     | 5000            |
+| REEL_REVIEWS_MONGODB_HOST | MongoDB Host & Port | localhost:27017 |
 
 ### Example Building This Docker Image
 
@@ -15,4 +15,14 @@ Node Express restful API implementation for [Reel Reviews](https://github.com/gr
 
 ### Example Running This Docker Container Detached
 
-`docker run -d -p 5001:5000 --env REEL_REVIEWS_MONGODB_URL=mongodb://YOUR-HOST-OR-IP/reelreviews reelreviews-api:dev`
+`docker run -d -p 5001:5000 --env REEL_REVIEWS_MONGODB_HOST=[YOUR-HOST-OR-IP:YOUR-TCP-PORT] reelreviews-api:dev`
+
+### Docker Compose
+
+`docker-compose build`
+
+`docker-compose up -d` or `docker-compose up`
+
+### DockerHub
+
+`docker pull chrisgruber/reel-reviews-api`

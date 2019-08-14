@@ -8,10 +8,12 @@ dotenv.config();
 
 const app = Express();
 const port = process.env.REEL_REVIEWS_API_PORT || '5000';
-const mongodbUrl =
-  process.env.REEL_REVIEWS_MONGODB_URL || 'mongodb://localhost/reelreviews';
+const mongodb = process.env.REEL_REVIEWS_MONGODB_HOST || 'localhost:27017';
+const mongodbUrl = `mongodb://${mongodb}/reelreviews`;
 
-Mongoose.connect(mongodbUrl, { useNewUrlParser: true }).catch(error => {
+Mongoose.connect(mongodbUrl, {
+  useNewUrlParser: true
+}).catch(error => {
   console.log(error);
 });
 Mongoose.connection.on('error', error => console.log(error));
