@@ -9,6 +9,12 @@ Node Express restful API implementation for [Reel Reviews](https://github.com/gr
 | REEL_REVIEWS_API_PORT     | TCP Sevrer Port     | 5000            |
 | REEL_REVIEWS_MONGODB_HOST | MongoDB Host & Port | localhost:27017 |
 
+## DockerHub
+
+[chrisgruber/reel-reviews-api](https://hub.docker.com/r/chrisgruber/reel-reviews-api)
+
+`docker pull chrisgruber/reel-reviews-api`
+
 ### Example Building This Docker Image
 
 `docker build -t reelreviews-api:dev`
