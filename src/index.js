@@ -12,7 +12,9 @@ const mongodb = process.env.REEL_REVIEWS_MONGODB_HOST || 'localhost:27017';
 const mongodbUrl = `mongodb://${mongodb}/reelreviews`;
 
 Mongoose.connect(mongodbUrl, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  keepAlive: true,
+  keepAliveInitialDelay: 300000
 }).catch(error => {
   console.log(error);
 });
@@ -20,8 +22,23 @@ Mongoose.connection.on('error', error => console.log(error));
 Mongoose.connection.on('connected', () =>
   console.log(`Mongoose connected to ${mongodbUrl}`)
 );
-Mongoose.connection.on('disconnect', () =>
+Mongoose.connection.on('connecting', () =>
+  console.log(`Connecting to ${mongodbUrl}`)
+);
+Mongoose.connection.on('close', () =>
+  console.log(`Connection with ${mongodbUrl} is closed`)
+);
+Mongoose.connection.on('disconnecting', () =>
+  console.log(`Disconnecting from ${mongodbUrl}`)
+);
+Mongoose.connection.on('disconnected', () =>
   console.log(`Mongoose has disconnected from ${mongodbUrl}`)
+);
+Mongoose.connection.on('reconnected', () =>
+  console.log(`Reconnected to ${mongodbUrl}`)
+);
+Mongoose.connection.on('reconnectFailed', () =>
+  console.log(`Attempt(s) to reconnect to ${mongodbUrl} has failed!`)
 );
 
 process.on('SIGINT', () => {
@@ -36,6 +53,8 @@ process.on('SIGINT', () => {
 app.use(cors());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
+
+app.options('*', cors()); // enable pre-flight request
 
 const FavoriteModel = Mongoose.model('favorite', {
   imdbID: String,
