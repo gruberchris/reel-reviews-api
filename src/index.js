@@ -55,11 +55,18 @@ process.on('SIGINT', () => {
   });
 });
 
-app.use(cors({ origin: allowedOrigin }));
+const corsOptions = {
+  origin: allowedOrigin,
+  methods: 'GET,OPTIONS,PUT,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 
-app.options('*', cors({ origin: allowedOrigin })); // enable pre-flight request
+app.options('*', cors(corsOptions)); // enable pre-flight request
 
 const FavoriteModel = Mongoose.model('favorite', {
   imdbID: String,
