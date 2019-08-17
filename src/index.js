@@ -8,7 +8,9 @@ dotenv.config();
 
 const app = Express();
 const port = process.env.REEL_REVIEWS_API_PORT || '5000';
-const mongodb = process.env.REEL_REVIEWS_MONGODB_HOST || 'localhost:27017';
+const allowedOrigin = process.env.REEL_REVIEWS_ALLOW_ORIGIN || 'locahost:5000';
+const mongodb =
+  process.env.REEL_REVIEWS_MONGODB_HOST || 'http://localhost:27017';
 const mongodbUrl = `mongodb://${mongodb}/reelreviews`;
 
 Mongoose.connect(mongodbUrl, {
@@ -50,11 +52,11 @@ process.on('SIGINT', () => {
   });
 });
 
-app.use(cors());
+app.use(cors({ origin: allowedOrigin }));
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 
-app.options('*', cors()); // enable pre-flight request
+app.options('*', cors({ origin: allowedOrigin })); // enable pre-flight request
 
 const FavoriteModel = Mongoose.model('favorite', {
   imdbID: String,
