@@ -8,10 +8,13 @@ dotenv.config();
 
 const app = Express();
 const port = process.env.REEL_REVIEWS_API_PORT || '5000';
-const allowedOrigin = process.env.REEL_REVIEWS_ALLOW_ORIGIN || 'locahost:5000';
+const allowedOrigin =
+  process.env.REEL_REVIEWS_ALLOW_ORIGIN || 'http://localhost:3000';
 const mongodb =
   process.env.REEL_REVIEWS_MONGODB_HOST || 'http://localhost:27017';
 const mongodbUrl = `mongodb://${mongodb}/reelreviews`;
+
+console.log(`CORS Allowed Origin: ${allowedOrigin}`);
 
 Mongoose.connect(mongodbUrl, {
   useNewUrlParser: true,
