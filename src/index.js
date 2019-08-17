@@ -54,8 +54,6 @@ app.use(cors());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 
-app.options('*', cors()); // enable pre-flight request
-
 const FavoriteModel = Mongoose.model('favorite', {
   imdbID: String,
   Title: String,
