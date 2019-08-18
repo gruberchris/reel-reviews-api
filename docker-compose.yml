@@ -19,3 +19,13 @@ services:
       - mongodb
     environment:
       - REEL_REVIEWS_MONGODB_HOST=mongodb:27017
+  nginx:
+    container_name: reelreviews-nginx
+    restart: unless-stopped
+    image: nginx:1.17.3-alpine
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
